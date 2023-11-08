@@ -1,8 +1,34 @@
 from tkinter import *   # import only constants and classes but not modules
 from tkinter import messagebox
+from random import choice, randint, shuffle
+import pyperclip
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
+
+def generate_password():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    # nr_letters = random.randint(8, 10)  # take 8 to 10 letters
+    # nr_symbols = random.randint(2, 4)   # take 2 to 4 symbols
+    # nr_numbers = random.randint(2, 4)   # take 2 to 4 numbers
+
+    password_letters = [choice(letters) for _ in range(randint(8, 10))]
+    password_symbols = [choice(symbols) for _ in range(randint(2, 4))]
+    password_numbers = [choice(numbers) for _ in range(randint(2, 4))]
+
+    password_list = password_letters + password_symbols + password_numbers
+    shuffle(password_list)
+
+    password = "".join(password_list)
+    password_entry.insert(0, password)
+
+    pyperclip.copy(password)    # copy password to clipboard
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+
 
 def save_data():
     # fetch the current entries text
@@ -30,6 +56,8 @@ def save_data():
                 password_entry.delete(0, END)
 
 # ---------------------------- UI SETUP ------------------------------- #
+
+
 window = Tk()
 window.title("Password Manager")
 # Add padding
@@ -64,7 +92,7 @@ password_entry = Entry(width=20)
 password_entry.grid(column=1, row=3)
 
 # Buttons
-generate_password_button = Button(text="Generate Password")
+generate_password_button = Button(text="Generate Password",command=generate_password)
 generate_password_button.grid(column=2, row=3)
 add_button = Button(text="Add", width=36, command=save_data)
 add_button.grid(column=1, row=4, columnspan=2)
