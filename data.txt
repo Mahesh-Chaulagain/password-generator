@@ -1,3 +1,3 @@
-ok | example@email.com | dsafjkfhdaksf 
-hello | example@email.com | sjdfhklasd 
-facebool | example@email.com | #Uc)h7&6OaW(QC 
+ok | example@email.com | dsafjkfhdaksf
+hello | example@email.com | sjdfhklasd
+facebool | example@email.com | #Uc)h7&6OaW(QC

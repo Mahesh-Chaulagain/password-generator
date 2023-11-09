@@ -2,6 +2,7 @@ from tkinter import *   # import only constants and classes but not modules
 from tkinter import messagebox
 from random import choice, randint, shuffle
 import pyperclip
+import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
@@ -35,25 +36,41 @@ def save_data():
     website_data = website_entry.get()
     email_data = email_entry.get()
     password_data = password_entry.get()
+    new_data = {website_data: {
+        "email": email_data,
+        "password": password_data
+    }}
 
     # Validate data
     if len(website_data) == 0 or len(password_data) == 0:
         messagebox.showinfo(title="Oops", message="Please don't leave any fields empty")
 
     else:
-        # Top-up box
-        is_ok = messagebox.askokcancel(title=website_data, message=f"These are the details entered:"
-                                                          f"\nEmail:{email_data}"
-                                                          f"\nPassword:{password_data}"
-                                                          f"\n Is it ok to save?")
+        # with open("data.json", "w") as data_file:
+        #     # To write data to JSON -> json.dump(things you want to dump, file you want to dump into)
+        #     # Serialization of data : convert dictionary into json
+        #     json.dump(new_data, data_file, indent=4)
 
-        if is_ok:
-            with open("data.txt", mode='a') as data_file:
-                data_file.write(f"{website_data} | {email_data} | {password_data} \n")
+        # with open("data.json", "w") as data_file:
+            # To read data from JSON -> json.load(file)
+            # Deserialization of data: convert json to dictionary
+            # data = json.load(data_file)
+            # print(data)
 
-                # Delete the entry data
-                website_entry.delete(0, END)
-                password_entry.delete(0, END)
+        with open("data.json", "r") as data_file:
+            # To update data in JSON -> json.update()
+            # Reading old data
+            data = json.load(data_file)
+            # updating old data with new data
+            data.update(new_data)
+
+        with open("data.json", "w") as data_file:
+            # Saving updated data
+            json.dump(data, data_file, indent=4)
+
+            # Delete the entry data
+            website_entry.delete(0, END)
+            password_entry.delete(0, END)
 
 # ---------------------------- UI SETUP ------------------------------- #
 
