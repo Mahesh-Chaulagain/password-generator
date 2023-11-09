@@ -46,28 +46,20 @@ def save_data():
         messagebox.showinfo(title="Oops", message="Please don't leave any fields empty")
 
     else:
-        # with open("data.json", "w") as data_file:
-        #     # To write data to JSON -> json.dump(things you want to dump, file you want to dump into)
-        #     # Serialization of data : convert dictionary into json
-        #     json.dump(new_data, data_file, indent=4)
-
-        # with open("data.json", "w") as data_file:
-            # To read data from JSON -> json.load(file)
-            # Deserialization of data: convert json to dictionary
-            # data = json.load(data_file)
-            # print(data)
-
-        with open("data.json", "r") as data_file:
-            # To update data in JSON -> json.update()
-            # Reading old data
-            data = json.load(data_file)
+        try:    # block which fails
+            with open("data.json", "r") as data_file:
+                data = json.load(data_file)
+        except FileNotFoundError:   # block that deals with any failure
+            with open("data.json", "w") as data_file:
+                # Saving new data
+                json.dump(new_data, data_file, indent=4)
+        else:   # block that has code that needs to run if there were no issues
             # updating old data with new data
             data.update(new_data)
 
-        with open("data.json", "w") as data_file:
-            # Saving updated data
-            json.dump(data, data_file, indent=4)
-
+            with open("data.json", "w") as data_file:
+                json.dump(data, data_file, indent=4)
+        finally:    # block that contains code which runs no matter whether there were errors or not
             # Delete the entry data
             website_entry.delete(0, END)
             password_entry.delete(0, END)
