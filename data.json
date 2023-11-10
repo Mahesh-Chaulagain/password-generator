@@ -1,10 +1,14 @@
 {
     "Amazon": {
         "email": "example@email.com",
-        "password": "x03$t0IKrk)t#*k9"
+        "password": "+6GJ!)1K$nCUmi"
     },
     "Ebay": {
         "email": "example@email.com",
-        "password": "8RT0obzDnl5Z$*v"
+        "password": "S%AlB%(7P&Xxq2"
+    },
+    "Twitter": {
+        "email": "example@email.com",
+        "password": ")JWl7j&IRa6*j"
     }
 }
